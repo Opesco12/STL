@@ -99,6 +99,9 @@ const AppMonthPicker = ({ isVisible, onClose, onSelectMonthYear }) => {
         </TouchableWithoutFeedback>
         <View style={styles.modalContent}>
           <View style={styles.pickerContainer}>
+            {/* Center Highlight Line */}
+            <View style={styles.centerHighlight} />
+            {/* Month Picker */}
             <ScrollView
               ref={monthScrollViewRef}
               showsVerticalScrollIndicator={false}
@@ -109,6 +112,7 @@ const AppMonthPicker = ({ isVisible, onClose, onSelectMonthYear }) => {
             >
               {renderPickerItems(months)}
             </ScrollView>
+            {/* Year Picker */}
             <ScrollView
               ref={yearScrollViewRef}
               showsVerticalScrollIndicator={false}
@@ -161,6 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     marginBottom: 20,
+    position: "relative",
   },
   scrollView: {
     flex: 1,
@@ -176,10 +181,21 @@ const styles = StyleSheet.create({
   pickerItemText: {
     fontSize: 18,
   },
+  centerHighlight: {
+    position: "absolute",
+    top: (ITEM_HEIGHT * VISIBLE_ITEMS) / 2 - ITEM_HEIGHT / 2,
+    left: 0,
+    right: 0,
+    height: ITEM_HEIGHT,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: Colors.light,
+    zIndex: 1,
+  },
   button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.primary,
     borderRadius: 5,
   },
   buttonText: {

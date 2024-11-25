@@ -16,7 +16,7 @@ const CenterModal = ({
   isVisible = false,
   onClose,
   title,
-  description = "This is a wider card with supporting text below as a natural lead-in to additional content.",
+  buttons = true,
   primaryButtonText = "Save changes",
   secondaryButtonText = "Close",
   onPrimaryPress,
@@ -69,26 +69,28 @@ const CenterModal = ({
 
           <View style={styles.body}>{children}</View>
 
-          <View style={styles.footer}>
-            <TouchableOpacity
-              style={styles.secondaryButton}
-              onPress={handleSecondaryPress}
-            >
-              <StyledText variant="medium">{secondaryButtonText}</StyledText>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.primaryButton}
-              onPress={handlePrimaryPress}
-            >
-              <StyledText
-                color={Colors.white}
-                variant="medium"
+          {buttons && (
+            <View style={styles.footer}>
+              <TouchableOpacity
+                style={styles.secondaryButton}
+                onPress={handleSecondaryPress}
               >
-                {primaryButtonText}
-              </StyledText>
-            </TouchableOpacity>
-          </View>
+                <StyledText variant="medium">{secondaryButtonText}</StyledText>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.primaryButton}
+                onPress={handlePrimaryPress}
+              >
+                <StyledText
+                  color={Colors.white}
+                  variant="medium"
+                >
+                  {primaryButtonText}
+                </StyledText>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     </Modal>
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: "#fff",
     borderRadius: 8,
-    width: Dimensions.get("window").width * 0.85,
+    width: Dimensions.get("window").width * 0.9,
     maxWidth: 500,
     shadowColor: "#000",
     shadowOffset: {

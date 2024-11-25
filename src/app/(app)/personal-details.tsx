@@ -122,9 +122,6 @@ const PersonalDetails = () => {
         <View
           style={{
             marginVertical: 25,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
           }}
         >
           <View>
@@ -136,11 +133,6 @@ const PersonalDetails = () => {
             </StyledText>
             <StyledText color={Colors.light}>{storedData?.fullName}</StyledText>
           </View>
-
-          <Image
-            source={require("../../../assets/images/layer.png")}
-            style={{ height: 50, width: 50, borderRadius: 25 }}
-          />
         </View>
         {!userData ? (
           <View

@@ -40,12 +40,12 @@ const Screen = ({
               style={{ flex: 1 }}
               contentContainerStyle={{ flexGrow: 1 }}
               showsVerticalScrollIndicator={false}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={onRefresh}
-                />
-              }
+              // refreshControl={
+              //   <RefreshControl
+              //     refreshing={refreshing}
+              //     onRefresh={onRefresh}
+              //   />
+              // }
             >
               <View style={{ flex: 1 }}>{children}</View>
             </ScrollView>
@@ -61,12 +61,12 @@ const Screen = ({
                   style={{ flex: 1 }}
                   contentContainerStyle={[{ flexGrow: 1 }]}
                   showsVerticalScrollIndicator={false}
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={refreshing}
-                      onRefresh={onRefresh}
-                    />
-                  }
+                  // refreshControl={
+                  //   <RefreshControl
+                  //     refreshing={refreshing}
+                  //     onRefresh={onRefresh}
+                  //   />
+                  // }
                   // keyboardShouldPersistTaps="handled"
                 >
                   {children}

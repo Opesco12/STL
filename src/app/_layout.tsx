@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import FlashMessage from "react-native-flash-message";
 
 import * as Updates from "expo-updates";
+import * as Clarity from "@microsoft/react-native-clarity";
+import { LogLevel, OneSignal } from "react-native-onesignal";
+import Constants from "expo-constants";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,12 +61,16 @@ export default function RootLayout() {
     return null;
   }
 
-  // useEffect(() => {}, []);
-
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
+  useEffect(() => {
+    Clarity.initialize("p41sgeag58");
+    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+    OneSignal.initialize("4909034a-c0b9-463b-a17e-7f4e50dda16c");
+    OneSignal.Notifications.requestPermission(true);
+  }, []);
   return (
     <>
       <Stack

@@ -21,6 +21,7 @@ import {
   EyeSlash,
   Copy,
   Refresh2,
+  Bank,
 } from "iconsax-react-native";
 import { Formik } from "formik";
 import { useFocusEffect } from "@react-navigation/native";
@@ -40,14 +41,17 @@ import {
   walletWithdrawalRequest,
 } from "@/src/api";
 
-import Banner from "@/assets/images/svg_images/Banner";
 import { showMessage } from "react-native-flash-message";
 import { Link } from "expo-router";
 import { copyToClipboard } from "../../helperFunctions/copyToClipboard";
 import { amountFormatter } from "../../helperFunctions/amountFormatter";
 import CenterModal from "@/src/components/AppCenterModal";
 
+import { useChat } from "@/src/context/ChatContext";
+
 const index = () => {
+  const { toggleModal } = useChat();
+
   const [loading, setIsLading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -410,6 +414,7 @@ const index = () => {
                 />
               </Link>
               <MediumBox
+                onPress={toggleModal}
                 icon={
                   <Reserve
                     size={27}
@@ -427,57 +432,90 @@ const index = () => {
         </View>
       </View>
 
-      <AppModal
-        isModalVisible={isDepositModalOpen}
-        setIsModalVisible={setIsDepositModalOpen}
+      <CenterModal
+        isVisible={isDepositModalOpen}
+        onClose={() => setIsDepositModalOpen(false)}
+        title="Deposit"
+        buttons={false}
       >
+        <View
+          style={{
+            height: 80,
+            width: 80,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: Colors.lightBg,
+            borderRadius: 40,
+            alignSelf: "center",
+          }}
+        >
+          <Bank
+            size={40}
+            color={Colors.lightPrimary}
+          />
+        </View>
         <StyledText
           type="subheading"
           variant="semibold"
-          style={{ marginVertical: 15 }}
+          style={{ marginVertical: 15, textAlign: "center" }}
         >
-          Virtual Accounts
+          Bank Transfer
+        </StyledText>
+        <StyledText
+          type="body"
+          style={{ marginVertical: 15 }}
+          style={{ textAlign: "center", opacity: 0.8, marginBottom: 30 }}
+        >
+          Send money to the bank account details below {"\n"}
+          {`Please note that there is a ${amountFormatter.format(
+            100
+          )} charge for Wallet Top-up`}
         </StyledText>
 
-        {virtualAccount.map((account, index) => (
-          <View
-            key={index}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              borderWidth: 0.5,
-              borderColor: Colors.border,
-              padding: 10,
-              borderRadius: 10,
-              gap: 10,
-            }}
-          >
-            <View>
-              <StyledText variant="medium">
-                {account.virtualAccountNo}
-              </StyledText>
-              <StyledText color={Colors.light}>
-                {account.virtualAccountName}
-              </StyledText>
-              <StyledText variant="medium">
-                {account.virtualAccountBankName
-                  ? account.virtualAccountBankName
-                  : "Rand Merchant Bank"}
-              </StyledText>
-            </View>
-
-            <Copy
-              size={25}
-              color={Colors.primary}
-              onPress={async () => {
-                await copyToClipboard(account?.virtualAccountNo);
-                setIsDepositModalOpen(false);
+        <View style={{ marginBottom: 20 }}>
+          {virtualAccount.map((account, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                borderWidth: 0.5,
+                borderColor: Colors.border,
+                padding: 10,
+                borderRadius: 10,
+                gap: 10,
               }}
-            />
-          </View>
-        ))}
-      </AppModal>
+            >
+              <View>
+                <StyledText
+                  variant="medium"
+                  color={Colors.lightPrimary}
+                >
+                  {account.virtualAccountNo}
+                </StyledText>
+                <StyledText color={Colors.light}>
+                  {account.virtualAccountName}
+                </StyledText>
+                <StyledText variant="medium">
+                  {account.virtualAccountBankName
+                    ? account.virtualAccountBankName
+                    : "Rand Merchant Bank"}
+                </StyledText>
+              </View>
+
+              <Copy
+                size={25}
+                color={Colors.lightPrimary}
+                onPress={async () => {
+                  await copyToClipboard(account?.virtualAccountNo);
+                  setIsDepositModalOpen(false);
+                }}
+              />
+            </View>
+          ))}
+        </View>
+      </CenterModal>
       <CenterModal
         isVisible={isWithdrawModalOpen}
         onClose={() => !isSubmitting && setIsWithdrawModalOpen(false)}
@@ -509,18 +547,5 @@ const index = () => {
     </LayeredScreen>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: Colors.lightBg,
-//     flex: 1,
-//     position: "relative",
-//   },
-//   layer: {
-//     backgroundColor: Colors.primary,
-//     height: 200,
-//     width: "100%",
-//   },
-// });
 
 export default index;

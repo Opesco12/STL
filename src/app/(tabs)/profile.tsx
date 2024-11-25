@@ -21,7 +21,11 @@ import { retrieveUserData } from "@/src/storage/userData";
 import { getClientPhoto, logout } from "@/src/api";
 import { Pressable } from "react-native";
 
+import { useChat } from "@/src/context/ChatContext";
+
 const Profile = () => {
+  const { toggleModal } = useChat();
+
   const [fullname, setFullname] = useState(null);
   const [authToken, setAuthToken] = useState(null);
 
@@ -120,21 +124,6 @@ const Profile = () => {
               KYC
             </AppListItem>
           </Link>
-          {/* <Link
-            href={"/"}
-            asChild
-          >
-            <AppListItem
-              leftIcon={
-                <UserOctagon
-                  size={20}
-                  color={Colors.primary}
-                />
-              }
-            >
-              Contact Account Manager
-            </AppListItem>
-          </Link> */}
           <Link
             href={"/change-password"}
             asChild
@@ -151,6 +140,7 @@ const Profile = () => {
             </AppListItem>
           </Link>
           <AppListItem
+            onPress={toggleModal}
             leftIcon={
               <Headphone
                 size={20}

@@ -16,14 +16,14 @@ const MediumBox = React.forwardRef(
         <View>
           {icon}
           <StyledText
-            color={Colors.lightPrimary}
+            color={Colors.primary}
             style={{ fontSize: 18, marginBottom: 5 }}
             variant="semibold"
           >
             {title}
           </StyledText>
           <StyledText
-            color={Colors.lightPrimary}
+            color={Colors.primary}
             type="label"
             style={{ lineHeight: 14 }}
             variant="regular"
