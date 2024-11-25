@@ -54,7 +54,7 @@ const LayeredScreen = ({
               {overlay ? (
                 <View
                   style={[
-                    // styles.overlay,
+                    styles.overlay,
                     { paddingTop: statusBarHeight, paddingBottom: 10 },
                   ]}
                 >
